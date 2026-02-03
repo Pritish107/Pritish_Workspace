@@ -29,4 +29,5 @@ jobs:
         uses: azure/CLI@v1
         with:
           inlineScript: |
+            az configure --defaults group=pritish_rg workspace=Pritish_Workspace1
             az ml job create --file job.yml
