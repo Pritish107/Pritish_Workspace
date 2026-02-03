@@ -12,6 +12,11 @@ environment: azureml://registries/azureml/environments/sklearn-1.5/labels/latest
 code: ./src
 
 command: >
-  python train.py
+  python train.py --output_dir ${{outputs.results}}
+
+outputs:
+  results:
+    type: uri_folder
+
 
 
