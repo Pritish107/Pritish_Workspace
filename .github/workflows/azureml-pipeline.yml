@@ -18,21 +18,21 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Install Azure ML CLI
+      - name: Install Azure ML CLI (Clean Install)
         uses: azure/CLI@v1
         with:
           inlineScript: |
-            az extension add -n ml
-            az version
+            az extension remove -n ml || true
+            az extension add -n ml --yes
+            az extension update -n ml
+            az ml -h
 
       - name: Submit Azure ML Job
         uses: azure/CLI@v1
         with:
           inlineScript: |
-            az extension add -n ml --yes
             az account show
-            az configure --defaults \
-             group=pritish_rg \
-            workspace=Pritish_Workspace1
+            az configure --defaults group=pritish_rg workspace=Pritish_Workspace1
             az ml compute list
             az ml job create --file job.yml --stream
+
