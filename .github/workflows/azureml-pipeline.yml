@@ -23,14 +23,13 @@ jobs:
         with:
           inlineScript: |
             az extension add -n ml --yes
-            az version
             az configure --defaults group=pritish_rg workspace=Pritish_Workspace1
-            az ml compute list
 
       - name: Submit Azure ML Job
         uses: azure/CLI@v1
         with:
           inlineScript: |
-            az ml job create --file job.yml --stream
+            az ml job create --file job.yml
+
 
 
