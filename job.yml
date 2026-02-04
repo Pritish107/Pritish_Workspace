@@ -1,36 +1,23 @@
-name: Azure ML Training Pipeline
+$schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
+type: command
 
-on:
-  push:
-    branches:
-      - main
+name: sklearn-train-job
+display_name: sklearn-training
+experiment_name: sklearn-ci-experiment
 
-jobs:
-  train:
-    runs-on: ubuntu-latest
+compute: azureml:cpu-cluster
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+environment: azureml://registries/azureml/environments/sklearn-1.5/labels/latest
 
-      - name: Login to Azure
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+code: ./src
 
-      - name: Install Azure ML CLI
-        uses: azure/CLI@v1
-        with:
-          inlineScript: |
-            az extension add -n ml --yes
-            az configure --defaults group=pritish_rg workspace=Pritish_Workspace1
-            az ml compute list
+command: >
+  python train.py --output_dir ${{outputs.output_dir}}
 
-      - name: Submit Azure ML Job
-        uses: azure/CLI@v1
-        with:
-          inlineScript: |
-            az ml job create --file job.yml --stream
+outputs:
+  output_dir:
+    mode: upload
+
 
 
 
