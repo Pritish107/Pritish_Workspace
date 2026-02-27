@@ -1,0 +1,33 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
+type: command
+
+name: sklearn-train-job
+display_name: sklearn-training
+experiment_name: sklearn-ci-experiment
+
+compute: azureml:cpu-cluster
+
+environment: azureml://registries/azureml/environments/sklearn-1.5/labels/latest
+
+code: ./src
+
+command: >
+  python train.py --output_dir ${{outputs.output_dir}}
+
+outputs:
+  output_dir:
+    mode: upload
+
+
+
+
+
+
+
+
+
+
+
+
+
+
