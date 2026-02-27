@@ -29,7 +29,7 @@ jobs:
         uses: azure/CLI@v1
         with:
           inlineScript: |
-            az ml job create --file job.yml
+            az ml job create --file jobs/job.yml
 
 
 
