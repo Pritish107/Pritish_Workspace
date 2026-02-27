@@ -16,8 +16,8 @@ command: >
 
 outputs:
   output_dir:
+    type: uri_folder
     mode: upload
-
 
 
 
