@@ -8,10 +8,17 @@ experiment_name: sklearn-ci-experiment
 compute: azureml:cpu-cluster
 
 environment:
-  name: AzureML-sklearn-1.5-ubuntu20.04-py38-cpu
-  version: latest
+  image: mcr.microsoft.com/azureml/openmpi4.1.0-ubuntu20.04
+  conda_file: |
+    channels:
+      - conda-forge
+    dependencies:
+      - python=3.8
+      - pip
+      - pip:
+          - scikit-learn
 
-code: src
+code: ./src
 
 command: python train.py
 
