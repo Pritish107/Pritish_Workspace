@@ -7,7 +7,7 @@ experiment_name: sklearn-ci-experiment
 
 compute: azureml:cpu-cluster
 
-environment: azureml://registries/azureml/environments/sklearn-1.5/labels/latest
+environment: AzureML-sklearn-1.5-ubuntu20.04-py38-cpu@latest
 
 code: src
 
