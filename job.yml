@@ -2,21 +2,10 @@ $schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
 type: command
 
 name: sklearn-train-job
-display_name: sklearn-training
-experiment_name: sklearn-ci-experiment
 
 compute: azureml:cpu-cluster
 
-environment:
-  image: mcr.microsoft.com/azureml/openmpi4.1.0-ubuntu20.04
-  conda_file: |
-    channels:
-      - conda-forge
-    dependencies:
-      - python=3.8
-      - pip
-      - pip:
-          - scikit-learn
+environment: azureml:AzureML-sklearn-1.5-ubuntu20.04-py38-cpu@latest
 
 code: ./src
 
