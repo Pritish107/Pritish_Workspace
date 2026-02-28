@@ -5,12 +5,13 @@ name: sklearn-train-job
 
 compute: azureml:cpu-cluster
 
-environment: ./environment.yml
+environment:
+  name: AzureML-sklearn-1.5-ubuntu20.04-py38-cpu
+  version: 1
 
 code: ./src
 
 command: python train.py
-
 
 
 
