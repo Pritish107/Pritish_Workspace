@@ -23,7 +23,10 @@ jobs:
           az extension remove -n ml || true
           az extension add -n ml --upgrade --yes
           az version
-          az configure --defaults group=pritish_rg workspace=Pritish_Workspace1
+
+      - name: Set Azure ML Defaults
+        run: |
+          az configure --defaults group=pritish_rg workspace=PritishMLWorkspace
 
       - name: Submit Azure ML Job
         run: |
