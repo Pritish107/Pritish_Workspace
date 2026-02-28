@@ -1,18 +1,18 @@
 $schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
 type: command
 
-name: sklearn-train-job
+compute: azureml:ml-cpu-cluster
 
-compute: azureml:cpu-cluster
-
-environment:
-  image: mcr.microsoft.com/azureml/openmpi4.1.0-ubuntu20.04
-  conda_file: conda.yml
+environment: azureml:sklearn-custom-env:1
 
 code: ./src
 
-command: python train.py
+command: >
+  python train.py --output_dir ${{outputs.output_dir}}
 
+outputs:
+  output_dir:
+    type: uri_folder
 
 
 
