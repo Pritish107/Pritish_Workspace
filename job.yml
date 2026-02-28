@@ -7,14 +7,7 @@ compute: azureml:cpu-cluster
 
 environment:
   image: mcr.microsoft.com/azureml/openmpi4.1.0-ubuntu20.04
-  conda_file: |
-    channels:
-      - conda-forge
-    dependencies:
-      - python=3.8
-      - pip
-      - pip:
-          - scikit-learn
+  conda_file: conda.yml
 
 code: ./src
 
