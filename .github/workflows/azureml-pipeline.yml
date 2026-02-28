@@ -18,9 +18,11 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Install Azure ML extension
+      - name: Install / Upgrade Azure ML CLI Extension
         run: |
-          az extension add -n ml --yes
+          az extension remove -n ml || true
+          az extension add -n ml --upgrade --yes
+          az version
           az configure --defaults group=pritish_rg workspace=Pritish_Workspace1
 
       - name: Submit Azure ML Job
