@@ -5,7 +5,17 @@ name: sklearn-train-job
 
 compute: azureml:cpu-cluster
 
-environment: azureml:AzureML-sklearn-1.5-ubuntu20.04-py38-cpu@latest
+environment:
+  image: mcr.microsoft.com/azureml/openmpi4.1.0-ubuntu20.04
+  conda_file: |
+    channels:
+      - conda-forge
+    dependencies:
+      - python=3.8
+      - pip
+      - pip:
+          - scikit-learn
+          - pandas
 
 code: ./src
 
