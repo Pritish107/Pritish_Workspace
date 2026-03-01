@@ -12,12 +12,20 @@ pipeline {
         stage('Azure Login') {
             steps {
                 withCredentials([file(credentialsId: 'azure-sp', variable: 'AZURE_FILE')]) {
-                    bat """
-                    az login --service-principal ^
-                      --username (Get-Content %AZURE_FILE% | ConvertFrom-Json).clientId ^
-                      --password (Get-Content %AZURE_FILE% | ConvertFrom-Json).clientSecret ^
-                      --tenant (Get-Content %AZURE_FILE% | ConvertFrom-Json).tenantId
-                    """
+                    powershell '''
+                        $json = Get-Content $env:AZURE_FILE | ConvertFrom-Json
+                        $clientId = $json.clientId
+                        $clientSecret = $json.clientSecret
+                        $tenantId = $json.tenantId
+                        $subscriptionId = $json.subscriptionId
+
+                        az login --service-principal `
+                          --username $clientId `
+                          --password $clientSecret `
+                          --tenant $tenantId
+
+                        az account set --subscription $subscriptionId
+                    '''
                 }
             }
         }
