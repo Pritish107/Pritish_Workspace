@@ -11,10 +11,13 @@ pipeline {
 
         stage('Azure Login') {
             steps {
-                withCredentials([file(credentialsId: 'azure-sp', variable: 'AZURE_CREDS')]) {
-                    bat '''
-                    az login --service-principal --username %CLIENT_ID% --password %CLIENT_SECRET% --tenant %TENANT_ID%
-                    '''
+                withCredentials([file(credentialsId: 'azure-sp', variable: 'AZURE_FILE')]) {
+                    bat """
+                    az login --service-principal ^
+                      --username (Get-Content %AZURE_FILE% | ConvertFrom-Json).clientId ^
+                      --password (Get-Content %AZURE_FILE% | ConvertFrom-Json).clientSecret ^
+                      --tenant (Get-Content %AZURE_FILE% | ConvertFrom-Json).tenantId
+                    """
                 }
             }
         }
