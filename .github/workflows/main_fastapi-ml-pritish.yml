@@ -71,6 +71,8 @@ jobs:
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
         with:
-          app-name: 'fastapi-ml-pritish'
-          slot-name: 'Production'
+         app-name: 'fastapi-ml-pritish'
+         slot-name: 'Production'
+         package: ./api
+
           
